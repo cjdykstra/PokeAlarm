@@ -32,6 +32,7 @@ class Alarm_Manager(Thread):
 			for id in self.notify_list:
 				out = out + "{}, ".format(get_pkmn_name(id))
 			log.info("You will be notified of the following pokemon: \n" + out[:-2])
+			## Send this list to Telegram?
 			self.seen = {}
 			self.alarms = []
 			self.queue = queue
