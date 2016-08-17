@@ -18,6 +18,20 @@ class Telegram_Alarm(Alarm):
 		log.info("Telegram Alarm intialized")
 		self.client.sendMessage(self.chat_id, 'PokeAlarm activated! We will alert this chat about pokemon.')
 		
+		#Start Craig's Edit
+		#Import settings from Alarms.json
+		filepath = config['ROOT_PATH']
+		with open(os.path.join(filepath, 'alarms.json')) as file:
+			settings = json.load(file)
+			alarm_settings = settings["alarms"]
+			self.notify_list = make_notify_list(settings["pokemon"])
+			out = ""
+			for id in self.notify_list:
+				out = out + "{}, ".format(get_pkmn_name(id))
+			#log.info("You will be notified of the following pokemon: \n" + out[:-2])
+			self.client.sendMessage(self.chat_id, 'You will be notified of the following pokemon: \n' + out[:-2])
+		#End Craig's Edit
+		
 	def connect(self):
 		self.client = telepot.Bot(self.bot_token) 
  		
